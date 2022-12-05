@@ -1,6 +1,7 @@
 from rest_framework import generics, viewsets
 from rest_framework.decorators import action
-
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 from .models import Women, Category
 from .serializers import WomenSerializer
 from django.forms import model_to_dict
@@ -10,6 +11,9 @@ from rest_framework.views import APIView
 
 # В случае когда идёт дублирование кода можно использовать ViewSets
 # реализация при помощи класса ModelViewSets
+
+
+
 class WomenViewSet(viewsets.ModelViewSet):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
@@ -29,22 +33,25 @@ class WomenViewSet(viewsets.ModelViewSet):
         cats = Category.objects.get(pk=pk)
         return Response({'cats': cats.name})
 
-# реализация при помощи класса ListCreateAPIView
+# реализация при помощи класса ListCreateAPIView  с добавлением ограничения
 # class WomenAPIList(generics.ListCreateAPIView):
 #    queryset = Women.objects.all()
 #    serializer_class = WomenSerializer
+#    permission_classes = (IsAuthenticatedOrReadOnly, )
 #
 #
-# реализация при помощи класса UpdateAPIView
-# class WomenAPIUpdate(generics.UpdateAPIView):
+# реализация при помощи класса RetrieveUpdateAPIView с добавлением ограничения
+# class WomenAPIUpdate(generics.RetrieveUpdateAPIView):
 #    queryset = Women.objects.all()
 #    serializer_class = WomenSerializer
+#    permission_classes = (IsOwnerOrReadOnly, )
 #
 #
-# реализация при помощи класса RetrieveUpdateDestroyAPIView
-# class WomenAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
+# реализация при помощи класса RetrieveDestroyAPIView  с добавлением ограничения
+# class WomenAPIDetailView(generics.RetrieveDestroyAPIView):
 #    queryset = Women.objects.all()
 #    serializer_class = WomenSerializer
+#    permission_classes = (IsAdminOrReadOnly, )
 
 # Принцип работы представлений
 
