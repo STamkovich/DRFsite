@@ -1,4 +1,5 @@
 from rest_framework import generics, viewsets
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
@@ -45,6 +46,7 @@ class WomenViewSet(viewsets.ModelViewSet):
 #    queryset = Women.objects.all()
 #    serializer_class = WomenSerializer
 #    permission_classes = (IsOwnerOrReadOnly, )
+#    authentication_classes = (TokenAuthentication, ) # каждому представлению можно прописывать аутентификацию
 #
 #
 # реализация при помощи класса RetrieveDestroyAPIView  с добавлением ограничения
