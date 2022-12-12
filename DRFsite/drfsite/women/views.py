@@ -1,6 +1,7 @@
 from rest_framework import generics, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
@@ -36,11 +37,17 @@ class WomenViewSet(viewsets.ModelViewSet):
         cats = Category.objects.get(pk=pk)
         return Response({'cats': cats.name})
 
+# class WomenApiListPagination(PageNumberPagination): #  собственный класс погинации
+#     page_size = 3 # количество записей на страницу
+#     page_size_query_param = 'page_size'  # дополнительный параметр для просмотра количества записей
+#     max_page_size = 1000 # максимальное значение дополнительного параметра page_size
+
 # реализация при помощи класса ListCreateAPIView  с добавлением ограничения
 # class WomenAPIList(generics.ListCreateAPIView):
 #    queryset = Women.objects.all()
 #    serializer_class = WomenSerializer
 #    permission_classes = (IsAuthenticatedOrReadOnly, )
+#    pagination_class = WomenApiListPagination # подключаем наш класс пагинации
 #
 #
 # реализация при помощи класса RetrieveUpdateAPIView с добавлением ограничения
