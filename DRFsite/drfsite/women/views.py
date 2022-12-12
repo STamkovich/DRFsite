@@ -2,6 +2,8 @@ from rest_framework import generics, viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 from .models import Women, Category
 from .serializers import WomenSerializer
